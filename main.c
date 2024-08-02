@@ -73,7 +73,7 @@ void SDL_AppQuit(void *appstate)
 {
 	app_t *a = (app_t *)appstate;
 	SDL_DestroyWindow(a->window);
-	SDL_GL_DeleteContext(a->context);
+	SDL_GL_DestroyContext(a->context);
 	SDL_free(a);
 	SDL_Quit();
 }

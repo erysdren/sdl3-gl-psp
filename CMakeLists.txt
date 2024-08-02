@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(gl_test)
+project(sdl3-gl-psp)
 
 add_executable(${PROJECT_NAME} main.c)
 
