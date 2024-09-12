@@ -34,23 +34,23 @@ typedef struct app {
 	SDL_GLContext context;
 } app_t;
 
-int SDL_AppInit(void **appstate, int argc, char **argv)
+SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
 {
 	app_t *a;
 
 	/* init sdl */
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD) != 0)
-		return -1;
+	if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD))
+		return SDL_APP_FAILURE;
 
 	/* allocate app state */
 	a = SDL_malloc(sizeof(app_t));
 	if (a == NULL)
-		return -1;
+		return SDL_APP_FAILURE;
 
 	/* create window */
 	a->window = SDL_CreateWindow("SDL App", 480, 272, SDL_WINDOW_OPENGL);
 	if (a->window == NULL)
-		return -1;
+		return SDL_APP_FAILURE;
 
 	/* init gl */
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
@@ -58,7 +58,7 @@ int SDL_AppInit(void **appstate, int argc, char **argv)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 	a->context = SDL_GL_CreateContext(a->window);
 	if (a->context == NULL)
-		return -1;
+		return SDL_APP_FAILURE;
 
 	/* set swap interval */
 	SDL_GL_SetSwapInterval(1);
@@ -66,7 +66,7 @@ int SDL_AppInit(void **appstate, int argc, char **argv)
 	/* return app state */
 	*appstate = (void *)a;
 
-	return 0;
+	return SDL_APP_CONTINUE;
 }
 
 void SDL_AppQuit(void *appstate)
@@ -78,7 +78,7 @@ void SDL_AppQuit(void *appstate)
 	SDL_Quit();
 }
 
-int SDL_AppIterate(void *appstate)
+SDL_AppResult SDL_AppIterate(void *appstate)
 {
 	int w, h;
 	float aspect;
@@ -113,16 +113,18 @@ int SDL_AppIterate(void *appstate)
 
 	/* swap buffers */
 	SDL_GL_SwapWindow(a->window);
+
+	return SDL_APP_CONTINUE;
 }
 
-int SDL_AppEvent(void *appstate, const SDL_Event *event)
+SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 {
 	app_t *a = (app_t *)appstate;
 
 	switch (event->type)
 	{
 		case SDL_EVENT_QUIT:
-			return 1;
+			return SDL_APP_SUCCESS;
 
 		case SDL_EVENT_GAMEPAD_ADDED:
 			SDL_OpenGamepad(event->cdevice.which);
@@ -130,9 +132,9 @@ int SDL_AppEvent(void *appstate, const SDL_Event *event)
 
 		case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
 			if (event->gbutton.button == SDL_GAMEPAD_BUTTON_START)
-				return 1;
+				return SDL_APP_SUCCESS;
 			break;
 	}
 
-	return 0;
+	return SDL_APP_CONTINUE;
 }
