@@ -1,9 +1,7 @@
 
 # sdl3-gl-psp
 
-A "hello world" example for SDL3 and OpenGL 1.2 running on the PSP with the
-[pspdev](https://pspdev.github.io/) toolchain. The latest alpha version of SDL3
-can be downloaded [here](https://github.com/libsdl-org/SDL). It has been
+A "hello world" example for SDL3 and OpenGL 1.2 running on the PSP. It has been
 tested working with [PSPDEV v20250101](https://github.com/pspdev/pspdev/releases/tag/v20250101)
 and [SDL3 3.1.8](https://github.com/libsdl-org/SDL/releases/tag/preview-3.1.8).
 
