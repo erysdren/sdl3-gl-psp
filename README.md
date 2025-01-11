@@ -3,7 +3,9 @@
 
 A "hello world" example for SDL3 and OpenGL 1.2 running on the PSP with the
 [pspdev](https://pspdev.github.io/) toolchain. The latest alpha version of SDL3
-can be downloaded [here](https://github.com/libsdl-org/SDL)
+can be downloaded [here](https://github.com/libsdl-org/SDL). It has been
+tested working with [PSPDEV v20250101](https://github.com/pspdev/pspdev/releases/tag/v20250101)
+and [SDL3 3.1.8](https://github.com/libsdl-org/SDL/releases/tag/preview-3.1.8).
 
 It is also configured to run on the desktop.
 
@@ -13,7 +15,7 @@ It is also configured to run on the desktop.
 
 MIT License
 
-Copyright (c) 2024 erysdren (it/she/they)
+Copyright (c) 2024-2025 erysdren (it/its)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
